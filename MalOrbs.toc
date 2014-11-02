@@ -1,0 +1,36 @@
+## Interface: 50400
+## Version: 0.9.7.1b
+
+## Title: MalOrbs
+## Notes: Creates orbs for various purposes.
+
+## Author: Malakahh
+## X-Copyright: Copyright (c) 2014 Malakahh. All Rights Reserved.
+
+## SavedVariables: MalOrbs_SV
+
+#LibQTip imports
+libs\LibQTip-1.0\LibStub\LibStub.lua
+libs\LibQTip-1.0\LibQTip-1.0.lua
+
+
+#MalUILib imports
+libs\MalUI\MalUI.xml
+
+
+#Generic
+Controller.lua
+
+
+#Orbs
+Orbs\Orb.lua
+Orbs\CenterContentOrb.lua
+Orbs\ExpOrb.lua
+Orbs\RepOrb.lua
+Orbs\CastingOrb.lua
+
+
+#Options
+OptionsPanel.lua
+ProfilePanel.lua
+PopupOptions.lua

@@ -1,0 +1,67 @@
+Version 0.9.7.1b - 1/9/2014
+
+- Unit of CastingOrb now saves correctly
+- Removed "selectedItem" message
+- Shiftkey now required to be hold down to open the rightclick options menu outside of configmode
+- Pressing escape with an open rightclick options menu disabled
+- Fixed issue with rested exp being incorrectly shown on ExpOrb
+- Added slashcommand to toggle configmode
+- CastingOrb for units other than "player" now displays correctly in ConfigMode
+- CastingOrb's text now stays in place after resizing
+- Remove Orb now properly removes the orb
+
+
+Version 0.9.7b - 26/8/2014
+
+- NEW: Profiling is here!
+- New options menu
+- Fixed bug with rested exp overlay not disappearing after nolonger rested
+- CastingOrb now hides default casting bar
+- Added name of spell being cast to CastingOrb
+- Outlined name of spell being cast and remaining cast time
+- Refactored codebase to follow common lua conventions
+
+
+Version 0.9.5b - 12/5/2014
+
+- Fixed problem with CastingOrb's when their unit was shown/hidden
+- Added overlay progress
+- Added ms indicator to CastingOrb using overlay
+- Added rested exp indicator to ExpOrb using overlay
+
+
+Version 0.9.4.2b - 1/5/2014
+
+- Fixed CastingOrb's unit not always being player after load
+
+
+Version 0.9.4.1b - 1/5/2014
+
+- Added unit selection to options of CastingOrb
+
+
+Version 0.9.4b - 1/5/2014
+
+- New orb! CastingOrb! 
+- Fixed bug with loading hidden orbs
+- Fixed bug with orbs relocating to center of screen when ui is being reloaded
+- Refactored some stuff into Init
+- Created option to reverse direction
+- Created new orb texture. The gradient is now far less invasive.
+
+
+Version 0.9.2b - 27/4/2014
+
+- Enabled dragging of orbs
+- Added possibility for content specialized for orb type in rightclick menu
+
+
+Version 0.9.1b - 25/4/2014
+
+- Rightclick menu now correctly uses redius as advertised.
+- Fixed bug that caused lua error when a RepOrb had been removed, and toggling of reptracking happened.
+- RepOrbs no longer shown when spawned, if no reputation is selected.
+- Added slash commands:
+	- /malorbs 
+	- /malorbs spawn 
+	- /malorbs types
