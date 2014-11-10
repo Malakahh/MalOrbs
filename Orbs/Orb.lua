@@ -232,7 +232,9 @@ function ns.Orb.Update(self)
 		end
 	end
 
-	self:SetOrbColorOnUpdate()
+    if self:GetUseDefaultColor() then
+	    self:SetOrbColorOnUpdate()
+    end
 
 	--Rotate textures
 	local progressAngle = progress * 3.6 * self.settings.progressFillDirection
@@ -393,16 +395,16 @@ end
 
 --Sets the color of progress
 function ns.Orb.SetProgressColor(self, r, g, b, a)
-	if r < 0 or r > 1 then
+	if r == nil or r < 0 or r > 1 then
 		return
 	end
-	if g < 0 or g > 1 then
+	if g == nil or g < 0 or g > 1 then
 		return
 	end
-	if b < 0 or b > 1 then
+	if b == nil or b < 0 or b > 1 then
 		return
 	end
-	if a < 0 or a > 1 then
+	if a ~= nil and (a < 0 or a > 1) then
 		return
 	end
 
@@ -431,18 +433,18 @@ end
 
 --Sets the color of secondaryprogress
 function ns.Orb.SetSecondaryProgressColor(self, r, g, b, a)
-	if r < 0 or r > 1 then
-		return
-	end
-	if g < 0 or g > 1 then
-		return
-	end
-	if b < 0 or b > 1 then
-		return
-	end
-	if a < 0 or a > 1 then
-		return
-	end
+    if r == nil or r < 0 or r > 1 then
+        return
+    end
+    if g == nil or g < 0 or g > 1 then
+        return
+    end
+    if b == nil or b < 0 or b > 1 then
+        return
+    end
+    if a ~= nil and (a < 0 or a > 1) then
+        return
+    end
 
 	self.settings.secondaryProgressColor = {}
 	self.settings.secondaryProgressColor.r = r
@@ -545,6 +547,10 @@ end
 
 --Gets if the orb uses default coloring
 function ns.Orb.GetUseDefaultColor(self)
+    if self.settings.useDefaultColor == nil then
+        self.settings.useDefaultColor = true
+    end
+
     return self.settings.useDefaultColor
 end
 

@@ -106,10 +106,6 @@ local function remove()
     baseFrame:Hide()
 end
 
-local function ShowColorPicker()
-
-end
-
 --titles
 local genericTitle = baseFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
 genericTitle:SetPoint("TOPLEFT", FRAME_PADDING, -FRAME_PADDING)
@@ -224,7 +220,7 @@ end)
 local defaultColor = CreateFrame("CheckButton", genericFrame:GetName().."DefaultColorCheckButton", genericFrame, "ChatConfigCheckButtonTemplate")
 local colorPickerBtn = CreateFrame("Button", genericFrame:GetName().."ColorPickerButton", genericFrame)
 local colorPickerBtnTexture = colorPickerBtn:CreateTexture()
-local colorPickerBtnText = colorPickerBtn:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+local colorPickerBtnText = colorPickerBtn:CreateFontString(nil, "ARTWORK", "GameFontWhite") --GameFontWhite
 
 defaultColor:SetPoint("TOPLEFT", fillDirection, "BOTTOMLEFT", 0, -3)
 _G[defaultColor:GetName().."Text"]:SetText("Use default coloring")
@@ -239,14 +235,32 @@ defaultColor:SetScript("OnClick", function()
     end
 end)
 
-colorPickerBtn:SetPoint("TOPLEFT", defaultColor, "BOTTOMLEFT", 0, -3)
+colorPickerBtn:SetPoint("TOPLEFT", defaultColor, "BOTTOMLEFT", 3, -3)
 colorPickerBtn:SetSize(24, 24)
-colorPickerBtn:SetScript("OnClick", ShowColorPicker)
+colorPickerBtn:SetScript("OnClick", function()
+    if currOrb:GetUseDefaultColor() then return end
+
+    local r,g,b = currOrb:GetProgressColor()
+    ColorPickerFrame.previousValues = {r,g,b }
+
+    ColorPickerFrame.func = function()
+        currOrb:SetProgressColor(ColorPickerFrame:GetColorRGB())
+    end
+
+    ColorPickerFrame.cancelFunc = function()
+        currOrb:SetProgressColor(ColorPickerFrame.previousValues)
+    end
+
+    ColorPickerFrame:SetColorRGB(r,g,b)
+    ColorPickerFrame:Hide()
+    ColorPickerFrame:Show()
+end)
 
 colorPickerBtnTexture:SetAllPoints()
 
-colorPickerBtnText:SetPoint("LEFT", colorPickerBtn, "RIGHT", 0, 3)
-colorPickerBtnText:SetPoint("RIGHT", genericFrame, "LEFT", 0, -3)
+colorPickerBtnText:SetPoint("LEFT", colorPickerBtn, "RIGHT", 3, 0)
+colorPickerBtnText:SetPoint("RIGHT", genericFrame, "RIGHT", -3, 0)
+colorPickerBtnText:SetJustifyH("LEFT")
 colorPickerBtnText:SetText("Pick color")
 
 local function SetGenericOrb(orb)
@@ -286,6 +300,11 @@ local function SetGenericOrb(orb)
     local primFill = false
     if orb:GetProgressFillDirection() == 1 then primFill = true end
     fillDirection:SetChecked(primFill)
+
+    --Fill colorpicketbtn
+    defaultColor:SetChecked(currOrb:GetUseDefaultColor())
+    local r, g, b = currOrb:GetProgressColor()
+    colorPickerBtnTexture:SetTexture(r, g, b)
 end
 
 -----
