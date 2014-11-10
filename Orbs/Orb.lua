@@ -543,6 +543,16 @@ function ns.Orb.SetPoint(self, point, relativeTo, relativePoint, ofsx, ofsy)
 	self.frame:SetPoint(point, relativeTo, relativePoint, ofsx, ofsy)
 end
 
+--Gets if the orb uses default coloring
+function ns.Orb.GetUseDefaultColor(self)
+    return self.settings.useDefaultColor
+end
+
+--Sets if the orb uses default coloring
+function ns.Orb.SetUseDefaultColor(self, useDefault)
+    self.settings.useDefaultColor = useDefault
+end
+
 --Applies a given set of settings, or reapplies the current set
 function ns.Orb.ApplySettings(self, settings)
 	--Visibility
@@ -563,6 +573,9 @@ function ns.Orb.ApplySettings(self, settings)
 	--Fill direction
 	self:SetProgressFillDirection(settings.progressFillDirection)
 	self:SetSecondaryProgressFillDirection(settings.secondaryProgressFillDirection)
+
+    --use default coloring
+    self:SetUseDefaultColor(settings.useDefaultColor)
 
 	--Progress color
 	if settings.progressColor then
@@ -616,7 +629,10 @@ function ns.Orb.UpdateSettings(self)
 	--Fill direction
 	newSettings.progressFillDirection = self:GetProgressFillDirection()
 	newSettings.secondaryProgressFillDirection = self:GetSecondaryProgressFillDirection()
-	
+
+    --use default coloring
+    newSettings.useDefaultColor = self:GetUseDefaultColor()
+
 	--Progress color
 	do
 		local r,g,b,a = self:GetProgressColor()

@@ -220,15 +220,28 @@ fillDirection:SetScript("OnClick", function()
     currOrb:Update()
 end)
 
---ColorPicker
-local colorPickerBtn = CreateFrame("Button", genericFrame:GetName().."ColorPicketButton", genericFrame)
-colorPickerBtn:SetPoint("TOPLEFT", fillDirection, "BOTTOMLEFT", 0, -3)
+--Color
+local defaultColor = CreateFrame("CheckButton", genericFrame:GetName().."DefaultColorCheckButton", genericFrame, "ChatConfigCheckButtonTemplate")
+defaultColor:SetPoint("TOPLEFT", fillDirection, "BOTTOMLEFT", 0, -3)
+_G[defaultColor:GetName().."Text"]:SetText("Use default coloring")
+defaultColor:SetScript("OnClick", function()
+    if defaultColor:GetChecked() then
+
+    end
+end)
+
+local colorPickerBtn = CreateFrame("Button", genericFrame:GetName().."ColorPickerButton", genericFrame)
+colorPickerBtn:SetPoint("TOPLEFT", defaultColor, "BOTTOMLEFT", 0, -3)
 colorPickerBtn:SetSize(24, 24)
 colorPickerBtn:SetScript("OnClick", ShowColorPicker)
 
 local colorPickerBtnTexture = colorPickerBtn:CreateTexture()
 colorPickerBtnTexture:SetAllPoints()
 
+local colorPickerBtnText = colorPickerBtn:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+colorPickerBtnText:SetPoint("LEFT", colorPickerBtn, "RIGHT", 0, 3)
+colorPickerBtnText:SetPoint("RIGHT", genericFrame, "LEFT", 0, -3)
+colorPickerBtnText:SetText("Pick color")
 
 local function SetGenericOrb(orb)
     if not orb then return end
