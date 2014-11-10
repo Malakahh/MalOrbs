@@ -106,6 +106,10 @@ local function remove()
     baseFrame:Hide()
 end
 
+local function ShowColorPicker()
+
+end
+
 --titles
 local genericTitle = baseFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
 genericTitle:SetPoint("TOPLEFT", FRAME_PADDING, -FRAME_PADDING)
@@ -215,6 +219,16 @@ fillDirection:SetScript("OnClick", function()
 
     currOrb:Update()
 end)
+
+--ColorPicker
+local colorPickerBtn = CreateFrame("Button", genericFrame:GetName().."ColorPicketButton", genericFrame)
+colorPickerBtn:SetPoint("TOPLEFT", fillDirection, "BOTTOMLEFT", 0, -3)
+colorPickerBtn:SetSize(24, 24)
+colorPickerBtn:SetScript("OnClick", ShowColorPicker)
+
+local colorPickerBtnTexture = colorPickerBtn:CreateTexture()
+colorPickerBtnTexture:SetAllPoints()
+
 
 local function SetGenericOrb(orb)
     if not orb then return end
