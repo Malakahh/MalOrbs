@@ -62,12 +62,12 @@ end
 --Sets the orb color, used by self.Update()
 function ns.ExpOrb.SetOrbColorOnUpdate(self)
 	if GetRestState() == 1 then --Rested
-		self:SetProgressColor(lib.Helper.HexColorToColor( 0x0033CCCC ))
+		self:SetProgressColor(lib.Helper.HexColorToColor( 0x0033CC ))
 
 		self:SetSecondaryProgressShown(true)
-		self:SetSecondaryProgressColor(lib.Helper.HexColorToColor( 0x0033CC4D ))
+		self:SetSecondaryProgressColor(lib.Helper.AlphaHexColorToColor( 0x0033CC4D ))
 	else --Not rested
-		self:SetProgressColor(lib.Helper.HexColorToColor( 0xB8008ACC ))
+		self:SetProgressColor(lib.Helper.HexColorToColor( 0xB8008A ))
 		self:SetSecondaryProgressShown(false)
 	end
 end

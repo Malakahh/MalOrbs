@@ -68,7 +68,7 @@ baseFrame:SetBackdrop({
 })
 baseFrame:SetBackdropColor(0.09, 0.09, 0.09);
 baseFrame:SetClampedToScreen(true)
-baseFrame:SetSize(600, 300)
+baseFrame:SetSize(600, 350)
 baseFrame:SetFrameLevel(10)
 baseFrame:SetMovable(true)
 baseFrame:EnableMouse(true)
@@ -87,6 +87,7 @@ local function discard()
     currOrb.settings = currOrb:UpdateSettings()
 
     currOrb:ConfigmodeLeave()
+    currOrb:Update()
     baseFrame:Hide()
 end
 
@@ -96,6 +97,7 @@ local function save()
     currOrb.settings = currOrb:UpdateSettings()
 
     currOrb:ConfigmodeLeave()
+    currOrb:Update()
     baseFrame:Hide()
 end
 
@@ -216,6 +218,71 @@ fillDirection:SetScript("OnClick", function()
     currOrb:Update()
 end)
 
+--Color
+local defaultColor = CreateFrame("CheckButton", genericFrame:GetName().."DefaultColorCheckButton", genericFrame, "ChatConfigCheckButtonTemplate")
+local colorPickerBtn = CreateFrame("Button", genericFrame:GetName().."ColorPickerButton", genericFrame)
+local colorPickerBtnTexture = colorPickerBtn:CreateTexture()
+local colorPickerBtnText = colorPickerBtn:CreateFontString(nil, "ARTWORK", "GameFontWhite") --GameFontWhite
+
+defaultColor:SetPoint("TOPLEFT", fillDirection, "BOTTOMLEFT", 0, -3)
+_G[defaultColor:GetName().."Text"]:SetText("Use default coloring")
+defaultColor:SetScript("OnClick", function()
+    local checked = defaultColor:GetChecked()
+    currOrb:SetUseDefaultColor(checked)
+
+    if checked then
+        colorPickerBtn:Disable()
+    else
+        colorPickerBtn:Enable()
+    end
+end)
+
+colorPickerBtn:SetPoint("TOPLEFT", defaultColor, "BOTTOMLEFT", 3, -3)
+colorPickerBtn:SetSize(24, 24)
+colorPickerBtn:SetScript("OnClick", function()
+    if currOrb:GetUseDefaultColor() then return end
+
+    local r,g,b = currOrb:GetProgressColor()
+    ColorPickerFrame.previousValues = {r,g,b }
+
+    ColorPickerFrame.func = function()
+        currOrb:SetProgressColor(ColorPickerFrame:GetColorRGB())
+    end
+
+    ColorPickerFrame.cancelFunc = function()
+        currOrb:SetProgressColor(ColorPickerFrame.previousValues)
+    end
+
+    ColorPickerFrame:SetColorRGB(r,g,b)
+    ColorPickerFrame:Hide()
+    ColorPickerFrame:Show()
+end)
+
+colorPickerBtnTexture:SetAllPoints()
+
+colorPickerBtnText:SetPoint("LEFT", colorPickerBtn, "RIGHT", 3, 0)
+colorPickerBtnText:SetPoint("RIGHT", genericFrame, "RIGHT", -3, 0)
+colorPickerBtnText:SetJustifyH("LEFT")
+colorPickerBtnText:SetText("Pick color")
+
+--alpha slider
+local alphaSlider = CreateFrame("Slider", genericFrame:GetName().."AlphaSlider", genericFrame, "OptionsSliderTemplate")
+alphaSlider:SetPoint("TOPLEFT", colorPickerBtn, "BOTTOMLEFT", 3, -13)
+alphaSlider:SetWidth(100)
+alphaSlider:SetHeight(20)
+alphaSlider:SetOrientation("HORIZONTAL")
+alphaSlider.tooltipText = "The alpha value indicates transparency."
+alphaSlider:SetMinMaxValues(0,100)
+_G[alphaSlider:GetName().."Low"]:SetText("0")
+_G[alphaSlider:GetName().."High"]:SetText("1")
+_G[alphaSlider:GetName().."Text"]:SetText("Alpha")
+alphaSlider:SetScript("OnValueChanged", function(s, value)
+    local r,g,b = currOrb:GetProgressColor()
+    local _, max = s:GetMinMaxValues()
+    local a = value / max
+    currOrb:SetProgressColor(r,g,b,a)
+end)
+
 local function SetGenericOrb(orb)
     if not orb then return end
 
@@ -253,6 +320,15 @@ local function SetGenericOrb(orb)
     local primFill = false
     if orb:GetProgressFillDirection() == 1 then primFill = true end
     fillDirection:SetChecked(primFill)
+
+    --Fill colorpicketbtn
+    defaultColor:SetChecked(currOrb:GetUseDefaultColor())
+    local r, g, b, a = currOrb:GetProgressColor()
+    colorPickerBtnTexture:SetTexture(r, g, b)
+
+    --Set alpha slider
+    local _, max = alphaSlider:GetMinMaxValues()
+    alphaSlider:SetValue(a * max)
 end
 
 -----
