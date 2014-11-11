@@ -63,8 +63,8 @@ end
 function ns.CastingOrb.SetOrbColorOnUpdate(self)
 	--Idea: Change color of castbar based on how many delays are caused by attacks? (i.e. go more and more red)
 
-	self:SetProgressColor(lib.Helper.HexColorToColor( 0x5184BDCC ))
-	self:SetSecondaryProgressColor(lib.Helper.HexColorToColor( 0xFF88008C ))
+	self:SetProgressColor(lib.Helper.HexColorToColor( 0x5184BD ))
+	self:SetSecondaryProgressColor(lib.Helper.AlphaHexColorToColor( 0xFF88008C ))
 end
 
 --Applies a given set of settings, or reapplies the current set

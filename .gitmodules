@@ -1,0 +1,3 @@
+[submodule "libs/MalUI"]
+	path = libs/MalUI
+	url = https://github.com/Malakahh/MalUI.git

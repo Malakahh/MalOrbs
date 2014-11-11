@@ -40,7 +40,7 @@ function ns.CenterContentOrb.Init(self, parentFrame, width, height)
 
 	local ccGlassBorder = ccGlassFrame:CreateTexture(nil, "BORDER")
 	ccGlassBorder:SetTexture(ns.Textures.BorderTexture)
-	ccGlassBorder:SetVertexColor(lib.Helper.HexColorToColor( 0xFFFFFFCC ))
+	ccGlassBorder:SetVertexColor(lib.Helper.AlphaHexColorToColor( 0xFFFFFFCC ))
 	ccGlassBorder:SetAllPoints()
 
 	----

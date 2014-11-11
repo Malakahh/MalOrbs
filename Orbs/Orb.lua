@@ -232,7 +232,9 @@ function ns.Orb.Update(self)
 		end
 	end
 
-	self:SetOrbColorOnUpdate()
+    if self:GetUseDefaultColor() then
+	    self:SetOrbColorOnUpdate()
+    end
 
 	--Rotate textures
 	local progressAngle = progress * 3.6 * self.settings.progressFillDirection
@@ -393,16 +395,16 @@ end
 
 --Sets the color of progress
 function ns.Orb.SetProgressColor(self, r, g, b, a)
-	if r < 0 or r > 1 then
+	if r == nil or r < 0 or r > 1 then
 		return
 	end
-	if g < 0 or g > 1 then
+	if g == nil or g < 0 or g > 1 then
 		return
 	end
-	if b < 0 or b > 1 then
+	if b == nil or b < 0 or b > 1 then
 		return
 	end
-	if a < 0 or a > 1 then
+	if a ~= nil and (a < 0 or a > 1) then
 		return
 	end
 
@@ -410,7 +412,7 @@ function ns.Orb.SetProgressColor(self, r, g, b, a)
 	self.settings.progressColor.r = r
 	self.settings.progressColor.g = g
 	self.settings.progressColor.b = b
-	self.settings.progressColor.a = a or 1
+	self.settings.progressColor.a = a or self.settings.progressColor.a
 
 	self.rightScrollChildProgressTexture:SetVertexColor(
 		self.settings.progressColor.r,
@@ -431,24 +433,24 @@ end
 
 --Sets the color of secondaryprogress
 function ns.Orb.SetSecondaryProgressColor(self, r, g, b, a)
-	if r < 0 or r > 1 then
-		return
-	end
-	if g < 0 or g > 1 then
-		return
-	end
-	if b < 0 or b > 1 then
-		return
-	end
-	if a < 0 or a > 1 then
-		return
-	end
+    if r == nil or r < 0 or r > 1 then
+        return
+    end
+    if g == nil or g < 0 or g > 1 then
+        return
+    end
+    if b == nil or b < 0 or b > 1 then
+        return
+    end
+    if a ~= nil and (a < 0 or a > 1) then
+        return
+    end
 
 	self.settings.secondaryProgressColor = {}
 	self.settings.secondaryProgressColor.r = r
 	self.settings.secondaryProgressColor.g = g
 	self.settings.secondaryProgressColor.b = b
-	self.settings.secondaryProgressColor.a = a or 1
+	self.settings.secondaryProgressColor.a = a or self.settings.secondaryProgressColor.a
 
 	self.rightScrollChildSecondaryProgressTexture:SetVertexColor(
 		self.settings.secondaryProgressColor.r,
@@ -543,6 +545,20 @@ function ns.Orb.SetPoint(self, point, relativeTo, relativePoint, ofsx, ofsy)
 	self.frame:SetPoint(point, relativeTo, relativePoint, ofsx, ofsy)
 end
 
+--Gets if the orb uses default coloring
+function ns.Orb.GetUseDefaultColor(self)
+    if self.settings.useDefaultColor == nil then
+        self.settings.useDefaultColor = true
+    end
+
+    return self.settings.useDefaultColor
+end
+
+--Sets if the orb uses default coloring
+function ns.Orb.SetUseDefaultColor(self, useDefault)
+    self.settings.useDefaultColor = useDefault
+end
+
 --Applies a given set of settings, or reapplies the current set
 function ns.Orb.ApplySettings(self, settings)
 	--Visibility
@@ -563,6 +579,9 @@ function ns.Orb.ApplySettings(self, settings)
 	--Fill direction
 	self:SetProgressFillDirection(settings.progressFillDirection)
 	self:SetSecondaryProgressFillDirection(settings.secondaryProgressFillDirection)
+
+    --use default coloring
+    self:SetUseDefaultColor(settings.useDefaultColor)
 
 	--Progress color
 	if settings.progressColor then
@@ -616,7 +635,10 @@ function ns.Orb.UpdateSettings(self)
 	--Fill direction
 	newSettings.progressFillDirection = self:GetProgressFillDirection()
 	newSettings.secondaryProgressFillDirection = self:GetSecondaryProgressFillDirection()
-	
+
+    --use default coloring
+    newSettings.useDefaultColor = self:GetUseDefaultColor()
+
 	--Progress color
 	do
 		local r,g,b,a = self:GetProgressColor()
