@@ -87,6 +87,7 @@ local function discard()
     currOrb.settings = currOrb:UpdateSettings()
 
     currOrb:ConfigmodeLeave()
+    currOrb:Update()
     baseFrame:Hide()
 end
 
@@ -96,6 +97,7 @@ local function save()
     currOrb.settings = currOrb:UpdateSettings()
 
     currOrb:ConfigmodeLeave()
+    currOrb:Update()
     baseFrame:Hide()
 end
 
@@ -326,7 +328,7 @@ local function SetGenericOrb(orb)
 
     --Set alpha slider
     local _, max = alphaSlider:GetMinMaxValues()
-    alphaSlider:SetValue(Math.floor(a * max))
+    alphaSlider:SetValue(a * max)
 end
 
 -----

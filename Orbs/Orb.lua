@@ -412,7 +412,7 @@ function ns.Orb.SetProgressColor(self, r, g, b, a)
 	self.settings.progressColor.r = r
 	self.settings.progressColor.g = g
 	self.settings.progressColor.b = b
-	self.settings.progressColor.a = a or 1
+	self.settings.progressColor.a = a or self.settings.progressColor.a
 
 	self.rightScrollChildProgressTexture:SetVertexColor(
 		self.settings.progressColor.r,
@@ -450,7 +450,7 @@ function ns.Orb.SetSecondaryProgressColor(self, r, g, b, a)
 	self.settings.secondaryProgressColor.r = r
 	self.settings.secondaryProgressColor.g = g
 	self.settings.secondaryProgressColor.b = b
-	self.settings.secondaryProgressColor.a = a or 1
+	self.settings.secondaryProgressColor.a = a or self.settings.secondaryProgressColor.a
 
 	self.rightScrollChildSecondaryProgressTexture:SetVertexColor(
 		self.settings.secondaryProgressColor.r,

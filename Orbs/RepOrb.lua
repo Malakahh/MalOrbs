@@ -158,27 +158,27 @@ end
 function ns.RepOrb.SetOrbColorOnUpdate(self)
 	local _, standing = GetWatchedFactionInfo()
 
-	local r,g,b,a
+	local r,g,b
 	if standing == 1 then --Hated
-		r,g,b,a = lib.Helper.HexColorToColor( 0xFF0000CC )
+		r,g,b = lib.Helper.HexColorToColor( 0xFF0000 )
 	elseif standing == 2 then --Hostile
-		r,g,b,a = lib.Helper.HexColorToColor( 0xFF5500CC )
+		r,g,b = lib.Helper.HexColorToColor( 0xFF5500 )
 	elseif standing == 3 then --Unfriendly
-		r,g,b,a = lib.Helper.HexColorToColor( 0xFFAA00CC )
+		r,g,b = lib.Helper.HexColorToColor( 0xFFAA00 )
 	elseif standing == 4 then --Neutral
-		r,g,b,a = lib.Helper.HexColorToColor( 0xFFFF00CC )
+		r,g,b = lib.Helper.HexColorToColor( 0xFFFF00 )
 	elseif standing == 5 then --Friendly
-		r,g,b,a = lib.Helper.HexColorToColor( 0xBDFF00CC )
+		r,g,b = lib.Helper.HexColorToColor( 0xBDFF00 )
 	elseif standing == 6 then --Honored
-		r,g,b,a = lib.Helper.HexColorToColor( 0x7EFF00CC )
+		r,g,b = lib.Helper.HexColorToColor( 0x7EFF00 )
 	elseif standing == 7 then --Revered
-		r,g,b,a = lib.Helper.HexColorToColor( 0x3FFF00CC )
+		r,g,b = lib.Helper.HexColorToColor( 0x3FFF00 )
 	elseif standing == 8 then --Exalted
-		r,g,b,a = lib.Helper.HexColorToColor( 0x00FF00CC )
+		r,g,b = lib.Helper.HexColorToColor( 0x00FF00 )
 	end
 
-	if r and g and b and a then
-		self:SetProgressColor(r,g,b,a)
+	if r and g and b then
+		self:SetProgressColor(r,g,b)
 	end
 end
 
