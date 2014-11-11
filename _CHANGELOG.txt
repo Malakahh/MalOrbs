@@ -1,4 +1,6 @@
-Version 0.9.7.2b - TBA
+Version 0.9.8b - 11/11/2014
+
+- Enabled color customization of orbs
 
 
 Version 0.9.7.1b - 1/9/2014
