@@ -68,7 +68,7 @@ baseFrame:SetBackdrop({
 })
 baseFrame:SetBackdropColor(0.09, 0.09, 0.09);
 baseFrame:SetClampedToScreen(true)
-baseFrame:SetSize(600, 300)
+baseFrame:SetSize(600, 350)
 baseFrame:SetFrameLevel(10)
 baseFrame:SetMovable(true)
 baseFrame:EnableMouse(true)
@@ -263,6 +263,24 @@ colorPickerBtnText:SetPoint("RIGHT", genericFrame, "RIGHT", -3, 0)
 colorPickerBtnText:SetJustifyH("LEFT")
 colorPickerBtnText:SetText("Pick color")
 
+--alpha slider
+local alphaSlider = CreateFrame("Slider", genericFrame:GetName().."AlphaSlider", genericFrame, "OptionsSliderTemplate")
+alphaSlider:SetPoint("TOPLEFT", colorPickerBtn, "BOTTOMLEFT", 3, -13)
+alphaSlider:SetWidth(100)
+alphaSlider:SetHeight(20)
+alphaSlider:SetOrientation("HORIZONTAL")
+alphaSlider.tooltipText = "The alpha value indicates transparency."
+alphaSlider:SetMinMaxValues(0,100)
+_G[alphaSlider:GetName().."Low"]:SetText("0")
+_G[alphaSlider:GetName().."High"]:SetText("1")
+_G[alphaSlider:GetName().."Text"]:SetText("Alpha")
+alphaSlider:SetScript("OnValueChanged", function(s, value)
+    local r,g,b = currOrb:GetProgressColor()
+    local _, max = s:GetMinMaxValues()
+    local a = value / max
+    currOrb:SetProgressColor(r,g,b,a)
+end)
+
 local function SetGenericOrb(orb)
     if not orb then return end
 
@@ -303,8 +321,12 @@ local function SetGenericOrb(orb)
 
     --Fill colorpicketbtn
     defaultColor:SetChecked(currOrb:GetUseDefaultColor())
-    local r, g, b = currOrb:GetProgressColor()
+    local r, g, b, a = currOrb:GetProgressColor()
     colorPickerBtnTexture:SetTexture(r, g, b)
+
+    --Set alpha slider
+    local _, max = alphaSlider:GetMinMaxValues()
+    alphaSlider:SetValue(Math.floor(a * max))
 end
 
 -----
