@@ -89,7 +89,7 @@ function ns.ExpOrb.Init(self, parentFrame, width, height)
 
 			self:Update()
 
-			if newLevel == 90 then
+			if newLevel == 100 then
 				self:Hide()
 			end
 		end

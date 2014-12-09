@@ -1,3 +1,9 @@
+Version 1.0 - 9/12/2014
+
+- Orbs should now hide at the new max level, 100, instead of 90.
+- CastingOrb should now properly disappear when switching to a target not casting a spell.
+
+
 Version 0.9.8b - 11/11/2014
 
 - Enabled color customization of orbs

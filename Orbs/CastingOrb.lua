@@ -269,6 +269,7 @@ function ns.CastingOrb.UpdateCast(self)
 	local name, _, _, texture, startTime, endTime = UnitCastingInfo(self.settings.CastingOrb.unit)
 
 	if not name then
+		self:Hide()
 		return
 	end
 
@@ -288,6 +289,7 @@ function ns.CastingOrb.UpdateChannel(self)
 	local name, _, _, texture, startTime, endTime = UnitChannelInfo(self.settings.CastingOrb.unit)
 
 	if not name then
+		self:Hide()
 		return
 	end
 
