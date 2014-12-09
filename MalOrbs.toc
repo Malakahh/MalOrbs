@@ -7,6 +7,11 @@
 ## Author: Malakahh
 ## X-Copyright: Copyright (c) 2014 Malakahh. All Rights Reserved.
 
+# This addon appears solely on the following sites:
+## X-Website: https://github.com/Malakahh/MalOrbs
+## X-Wowinterface: http://www.wowinterface.com/downloads/info22839-MalOrbs.html
+## X-Curse: http://www.curse.com/addons/wow/malorbs
+
 ## SavedVariables: MalOrbs_SV
 
 #LibQTip imports
