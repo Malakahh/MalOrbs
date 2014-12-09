@@ -270,7 +270,7 @@ function ns.CastingOrb.UpdateCast(self)
 
 	if not name then
 		self:Hide()
-		return
+		return false
 	end
 
 	self.fontSpellName:SetText(name)
@@ -282,6 +282,7 @@ function ns.CastingOrb.UpdateCast(self)
 
 	self:Update()
 	self:Show()
+	return true
 end
 
 --Updates the spell being channeled
@@ -290,7 +291,7 @@ function ns.CastingOrb.UpdateChannel(self)
 
 	if not name then
 		self:Hide()
-		return
+		return false
 	end
 
 	self.fontSpellName:SetText(name)
@@ -302,6 +303,7 @@ function ns.CastingOrb.UpdateChannel(self)
 
 	self:Update()
 	self:Show()
+	return true
 end
 
 --Stops casting and hides CastingOrb
@@ -342,22 +344,25 @@ function ns.CastingOrb.SetUnit(self, unit)
 	if self.settings.CastingOrb.unit == "target" then
 		self:RegisterEvent("PLAYER_TARGET_CHANGED")
 		self:AppendScript("OnEvent", function(s, event, ...)
-			self:UpdateCast()
-			self:UpdateChannel()
+			if not self:UpdateCast() then
+				self:UpdateChannel()
+			end
 		end)
 	elseif self.settings.CastingOrb.unit == "targettarget" then
 		self:RegisterEvent("UNIT_TARGET")
 		self:AppendScript("OnEvent", function(s, event, ...)
 			if ... == "target" then
-				self:UpdateCast()
-				self:UpdateChannel()
+				if not self:UpdateCast() then
+					self:UpdateChannel()
+				end
 			end
 		end)
 	elseif self.settings.CastingOrb.unit == "focus" then
 		self.RegisterEvent("PLAYER_FOCUS_CHANGED")
 		self:AppendScript("OnEvent", function(s, event, ...)
-			self:UpdateCast()
-			self:UpdateChannel()
+			if not self:UpdateCast() then
+				self:UpdateChannel()
+			end
 		end)
 	end
 end
