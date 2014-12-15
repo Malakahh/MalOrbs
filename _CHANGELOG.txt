@@ -1,3 +1,9 @@
+Version 1.01 - 15/12/2014
+
+- ExpOrb now relies on MAX_PLAYER_LEVEL to hide when max level.
+- Fixed lua error occouring when using the /malorbs types command.
+
+
 Version 1.0 - 9/12/2014
 
 - Orbs should now hide at the new max level, 100, instead of 90.
