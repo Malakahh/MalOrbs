@@ -89,7 +89,7 @@ function ns.ExpOrb.Init(self, parentFrame, width, height)
 
 			self:Update()
 
-			if newLevel == 100 then
+			if newLevel == MAX_PLAYER_LEVEL then
 				self:Hide()
 			end
 		end

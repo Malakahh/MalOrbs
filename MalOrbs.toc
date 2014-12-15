@@ -1,5 +1,5 @@
 ## Interface: 60000
-## Version: 1.0
+## Version: 1.01
 
 ## Title: MalOrbs
 ## Notes: Creates orbs for various purposes.

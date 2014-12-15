@@ -169,7 +169,7 @@ local function SlashCommandHandler(msg, editBox)
 		if ns.OrbTypes then
 			print("MalOrbs - OrbTypes:")
 			for k,v in pairs(ns.OrbTypes) do
-				print(" - "..v)
+				print(" - "..k)
 			end
 		else
 			print("MalOrbs: No types found.")
