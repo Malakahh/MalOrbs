@@ -214,9 +214,15 @@ function ns.CastingOrb.Init(self, parentFrame, width, height)
 				self:Hide()
 			end
 		elseif event == "UNIT_SPELLCAST_STOP" or event == "UNIT_SPELLCAST_CHANNEL_STOP" then
-			self:StopCast()
+			if (self.casting and event == "UNIT_SPELLCAST_STOP" and select(4, ...) == self.castID)
+				or (self.channeling and event == "UNIT_SPELLCAST_CHANNEL_STOP") then
+				
+				self:StopCast()
+			end
 		elseif event == "UNIT_SPELLCAST_FAILED" or event == "UNIT_SPELLCAST_INTERRUPTED" then
-			self:StopCast()
+			if self.casting and select(4, ...) == self.castID then
+				self:StopCast()
+			end
 		elseif event == "UNIT_SPELLCAST_DELAYED" then
 			if UnitName(self.settings.CastingOrb.unit) then
 				self:UpdateCast()
@@ -266,7 +272,7 @@ end
 
 --Updates the spell being cast
 function ns.CastingOrb.UpdateCast(self)
-	local name, _, _, texture, startTime, endTime = UnitCastingInfo(self.settings.CastingOrb.unit)
+	local name, _, _, texture, startTime, endTime, _, castID = UnitCastingInfo(self.settings.CastingOrb.unit)
 
 	if not name then
 		self:Hide()
@@ -279,6 +285,7 @@ function ns.CastingOrb.UpdateCast(self)
 	self.casting = 1
 	self.startTime = startTime
 	self.endTime = endTime
+	self.castID = castID
 
 	self:Update()
 	self:Show()
@@ -287,7 +294,7 @@ end
 
 --Updates the spell being channeled
 function ns.CastingOrb.UpdateChannel(self)
-	local name, _, _, texture, startTime, endTime = UnitChannelInfo(self.settings.CastingOrb.unit)
+	local name, _, _, texture, startTime, endTime, _, castID = UnitChannelInfo(self.settings.CastingOrb.unit)
 
 	if not name then
 		self:Hide()
@@ -300,6 +307,7 @@ function ns.CastingOrb.UpdateChannel(self)
 	self.channeling = 1
 	self.startTime = startTime
 	self.endTime = endTime
+	self.castID = castID
 
 	self:Update()
 	self:Show()
@@ -312,6 +320,7 @@ function ns.CastingOrb.StopCast(self)
 	self.channeling = nil
 	self.startTime = 0
 	self.endTime = 0
+	self.castID = -1
 	self:Hide()
 end
 

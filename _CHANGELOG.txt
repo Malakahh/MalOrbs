@@ -1,3 +1,8 @@
+Version 1.02 - 22/12/2014
+
+- CastingOrb should no longer disappear when other spells fail to cast.
+
+
 Version 1.01 - 15/12/2014
 
 - ExpOrb now relies on MAX_PLAYER_LEVEL to hide when max level.
